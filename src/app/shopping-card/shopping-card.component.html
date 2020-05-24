@@ -1,0 +1,55 @@
+<div class="row"  *ngIf="card$ | async as card">
+
+    <div class="col-3">
+        <div class="sticky-top">
+          <shopping-card-note [shopping-card]="card" ></shopping-card-note>
+       </div>
+    </div>
+  <div class="col-9">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Products</th>
+                <th class="text-center" style="width: 230;">Quantity</th>
+                <th class="text-right" style="width: 230;">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of card.newCard">
+                <td *ngIf="item.quantity != 0">
+                    <div [style.backgroundImage]="'url(' + item.product.imageUrl + ')'" 
+                    class="thumbnail"></div>
+                </td>
+                <td *ngIf="item.quantity != 0">
+                 {{ item.product.title }}
+                </td>
+                <td *ngIf="item.quantity != 0">
+                  <product-quantity [product]="item.product" [shopping-card]="card">
+                  </product-quantity>
+                </td>
+                <td  *ngIf="item.quantity != 0" class="text-right">
+                    {{ item.totalPrice | currency: 'USD': 'symbol' }}
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Total</th>
+                <th class="text-right">{{ card.totalPrice | currency: 'USD': 'symbol' }}</th>
+            </tr>
+        </tfoot>
+     </table>
+    <a
+    *ngIf="card.newCard.length"
+    routerLink="/check-out"
+    class="btn btn-primary btn-sm">Check out</a>
+    <button 
+    *ngIf="card.newCard.length"
+    (click)="clearCard()" 
+    class="btn btn-light btn-sm">Clear Shopping Card</button>
+  </div>
+
+</div>
