@@ -1,0 +1,25 @@
+
+
+.footer {
+    color: hsl(0, 6%, 85%);
+    border-top: 1px solid #eeeeee;
+    margin-top: 16px;
+    padding: 16px 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;   
+    height: 2.5rem;
+}
+
+.row-footer{
+    /* background-color: hsl(0, 6%, 85%); */
+    margin: 0px auto;
+    padding: 20px 0px 20px 0px;   
+} 
+
+.address{
+    font-size: 80%;
+    margin: 0px;
+    color:#0f0f0f;
+}
