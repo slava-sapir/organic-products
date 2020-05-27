@@ -1,0 +1,13 @@
+.card {
+    padding: 0ex;
+    margin-bottom: 30px;
+    border-bottom: 0ex;
+}
+.card-footer {
+    border: 0px;
+    padding: 0ex;
+}
+
+.text-center {
+    padding-top: 10px;
+}
