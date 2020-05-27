@@ -2,6 +2,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "app/*": ["app/*"],
+      "shared/*": [
+        "app/shared/*"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -17,7 +23,7 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
