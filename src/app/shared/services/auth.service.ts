@@ -18,11 +18,30 @@ export class AuthService {
               this.userData$ = afAuth.authState;
   }
 
-  login() {
+  login(name: string) {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
-    this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+
+    switch(name) {
+      case 'facebook':
+        this.afAuth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
+        break;
+      case 'twitter':
+        this.afAuth.signInWithRedirect(new firebase.auth.TwitterAuthProvider());
+        break;
+      case 'google':
+        this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+        break;
+      case 'git':
+        this.afAuth.signInWithRedirect(new firebase.auth.GithubAuthProvider());
+        break;
+      default:
+    }
+
+       // this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
+
+
 
   logout() {
     this.afAuth.signOut();
@@ -36,4 +55,5 @@ export class AuthService {
           return of(null);
     }));
   }
+
 }

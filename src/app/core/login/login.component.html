@@ -1,9 +1,64 @@
-<div class="page-container">
+<!-- <div class="page-container">
     <button 
     (click)="login()"
     class="btn btn-primary">Login with Google
     </button>
 
+</div> -->
+
+<div class="page-container">
+   <div class="centerDiv">
+      <div class="card" style="width: 15rem;">
+
+            <div class="card-header" >
+                Login with social media
+            </div>
+            <div class="card-body" >
+              <p class="card-text">Please login with one of the social media providers</p>
+              <ul class="list-group list-group-flush" >
+                <li class="list-group-item">
+                 <i class="fa fa-google">
+                     <a class="gl" (click)="login('google')">
+                    <!-- <button type="button" class="btn btn-outline-danger btn-sm"(click)="login('google')"> -->
+                      Login with Google
+                    <!-- </button> -->
+                     </a>
+                   </i>
+                 </li>
+                </ul>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item font-weight-bold">
+                    <i class="fa fa-facebook">
+                      <a class="fc" (click)="login('facebook')" disabled>
+             <!-- <button type="button" class="btn btn-outline-secondary btn-sm" (click)="login('facebook')"> -->
+                      Login with Facebook
+                    <!-- </button> -->
+                      </a>
+                   </i>
+                </li>
+            </ul>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item font-weight-bold">
+                    <i class="fa fa-twitter"><a class="tw" (click)="login('twitter')">
+                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="login('twitter')"> -->
+                      Login with Twitter
+                    </a>
+                  </i>
+                </li>
+              </ul>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item font-weight-bold">
+                    <i class="fa fa-github"><a class="gt" (click)="login('git')">
+                    <!-- <button type="button" class="btn btn-outline-dark btn-sm"(click)="login('git')"> -->
+                    Login with GitHub
+                    <!-- </button> -->
+                    </a>
+                    </i>
+                </li>
+            </ul>
+
+       </div>
+
+    </div>
+  </div>
 </div>
-
-

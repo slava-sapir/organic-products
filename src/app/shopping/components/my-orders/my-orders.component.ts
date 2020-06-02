@@ -1,8 +1,8 @@
 import { switchMap } from 'rxjs/operators';
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { OrderService } from '../../../shared/services/order.service';
 import { AuthService } from '../../../shared/services/auth.service';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Order } from '../../../shared/models/order';
 
 @Component({
@@ -12,15 +12,13 @@ import { Order } from '../../../shared/models/order';
 })
 export class MyOrdersComponent  {
 
-  title = 'Your orders';
+  page = 1;
+  pageSize =3;
+  title = 'List of your orders';
   action = false;
   orders$: Observable<Order[]>;
   key: string;
 
- // userId: string;
- // userSubscription: Subscription;
- // subscription: Subscription;
-  
   constructor(private orderService: OrderService,
               private authService: AuthService) {
     // this.userSubscription = this.authService.userData$.subscribe(user => this.userId = user.uid );
@@ -32,13 +30,6 @@ export class MyOrdersComponent  {
    this.action = !this.action;
    this.key = key;
    }
-
-   // ngOnInit(): void {}
-
-  // ngOnDestroy(): void {
-  //   this.userSubscription.unsubscribe();
-  // }
-
 
 }
 

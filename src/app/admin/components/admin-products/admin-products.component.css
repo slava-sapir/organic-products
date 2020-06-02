@@ -24,20 +24,6 @@
 }
 
 .input-field:focus {
-  border: 2px solid dodgerblue;
+  border: 2px solid #c1d62e!important;
 }
 
-/* Set a style for the submit button */
-.btn {
-  background-color: dodgerblue;
-  color: white;
-  padding: 15px 20px;
-  border: none;
-  cursor: pointer;
- 
-  opacity: 0.9;
-}
-
-.btn:hover {
-  opacity: 2;
-}

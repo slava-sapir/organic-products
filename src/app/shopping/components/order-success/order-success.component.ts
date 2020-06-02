@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Order } from '../../../shared/models/order';
 import { OrderService } from '../../../shared/services/order.service';
@@ -14,6 +14,7 @@ export class OrderSuccessComponent implements OnInit {
   order$: Observable<Order>;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private orderService: OrderService) { }
 
   ngOnInit() {
@@ -25,5 +26,10 @@ export class OrderSuccessComponent implements OnInit {
   }
 }
 
+continueShopping() {
+  if(confirm('Are you sure you want to leave this page?')) {
+    this.router.navigate(['/']);
+  }
+}
 
 }

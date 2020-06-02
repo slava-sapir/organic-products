@@ -1,4 +1,50 @@
 .page-container {
-    position: relative;
-    min-height: 100vh;
+  position: relative;
+  min-height: 100vh;
+  height: 500px;
+  
+}
+
+  .centerDiv {
+    width: 25%;
+    height:200px;
+    margin: 0 auto;
   }
+  
+.tw {
+    color: hsl(202, 96%, 53%);
+    cursor: pointer;
+}
+
+.fc {
+  color: hsl(246, 94%, 32%);
+  cursor: pointer;
+}
+
+.gl {
+  color: hsl(14, 86%, 48%);
+  cursor: pointer;
+}
+
+.gt {
+  color: hsl(298, 90%, 16%);
+  cursor: pointer;
+}
+
+.tw:hover {
+  color: #c1d62e;
+}
+
+.fc:hover {
+  color: #c1d62e;
+}
+
+
+.gl:hover {
+  color: #c1d62e;
+}
+
+
+.gt:hover {
+  color: #c1d62e;
+}

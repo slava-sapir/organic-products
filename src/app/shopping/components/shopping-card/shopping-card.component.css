@@ -8,8 +8,12 @@
 .sticky-top {
     top: 60px;
 }
+  
 
-.page-container {
+.cartImage {
     position: relative;
-    min-height: 100vh;
-  }
+    margin: 0px auto;
+    margin-left: 200px;
+}
+  
+  

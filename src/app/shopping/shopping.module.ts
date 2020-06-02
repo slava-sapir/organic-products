@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/shared/services/auth-guard.service';
@@ -34,6 +35,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     SharedModule,
+    NgbModule,
     RouterModule.forChild([
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-card', component: ShoppingCardComponent },

@@ -1,6 +1,6 @@
 import { OrderService } from '../../../shared/services/order.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/shared/models/order';
 import { Observable } from 'rxjs';
 
@@ -15,15 +15,22 @@ export class AdminOrderFormComponent implements OnInit {
   order$: Observable<Order>;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private orderService: OrderService) { }
 
-  ngOnInit() {
+ngOnInit() {
      if (this.order$ === undefined || null) {
       this.id = this.route.snapshot.paramMap.get('id');
       if (this.id) {
       this.order$ = this.orderService.getOrder(this.id);
      }
    }
+}
+
+back() {
+  if(confirm('Are you sure you want to leave this page?')) {
+    this.router.navigate(['/admin/orders']);
+  }
 }
 
 }

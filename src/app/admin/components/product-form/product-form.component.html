@@ -1,6 +1,29 @@
+<div class="page-container">
+  <div class="centerDiv">
 
-<div class="row">
-    <div class="col-md-6">
+    <div *ngIf="product.title && !closeAlert; else next" class="alert alert-light alert-dismissible fade show" role="alert">
+      <strong>Hello!</strong> 
+      Here you can manage your products - save, update or delete them.
+      You can also hit cancel to go back to the list of products.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <ng-template #next>
+      <div *ngIf="!closeAlert" class="col-md-3" class="alert alert-light alert-dismissible fade show" 
+        role="alert">
+        <strong>Hello!</strong> 
+        Using this form you can add new product to the product list.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </ng-template>
+    
+    <div class="row">
+       <div class="col-md-9">
+    
         <form #f="ngForm" (ngSubmit)="save(f.value)" novalidate>
 
             <div class="form-group"> 
@@ -64,11 +87,12 @@
         </form>
     </div>
 
-    <div class="col-md-6">
-       <product-card [product]="product" [show-actions]="false"></product-card>
-    </div>
+      <div class="col-md-3">
+        <product-card [product]="product" [show-actions]="false"></product-card>
+      </div>
 
+   </div>
 
+  </div>
 </div>
-
 

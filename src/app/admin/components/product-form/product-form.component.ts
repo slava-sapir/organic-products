@@ -16,7 +16,7 @@ export class ProductFormComponent implements OnInit {
  categories$;
  product: Product;
  id: string;
-
+ closeAlert: boolean;
 
 
  // tslint:disable-next-line: variable-name
@@ -51,6 +51,10 @@ export class ProductFormComponent implements OnInit {
     if(confirm('Are you sure you want to leave this page?')) {
       this.router.navigate(['/admin/products']);
     }
+  }
+
+  close() {
+    this.closeAlert = !this.closeAlert;
   }
 
   ngOnInit(): void {

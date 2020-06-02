@@ -1,11 +1,11 @@
 
-<div class="row">
+<div class="row" id="home">
 
      <div class="col-3">
        <product-filter [category]="category"></product-filter>
      </div>
 
-        <div class="col">
+        <div class="col-9">
             <div class="row" *ngIf="card$ | async as card">
              <!-- <ng-container *ngFor="let p of products | filter : category; let i = index"> -->
               <ng-container *ngFor="let p of filteredProducts; let i = index">

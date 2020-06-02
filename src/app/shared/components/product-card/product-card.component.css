@@ -21,5 +21,31 @@ p.capitalize {
 .sticky-top {
     top: 80px;
 }
+/* 
+.btn { margin: 4px 2px; 
+       display: inline-block;
+       background-color: #c1d62e;
+       border-color: #c1d62e;}
 
+.btn-primary {
+    background-color: #c1d62e;
+    border-color: #c1d62e;
+  }
+
+.btn-primary:hover {
+    background-color: #b1c522;
+    border-color: #b1c522;
+  }
   
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: #c1d62e;
+    border-color:  #c1d62e;
+  } */
+  
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 235px;
+    height: 170px;
+  }
+   

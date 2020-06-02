@@ -1,10 +1,14 @@
-
-<p>Order details</p>     
-<div class="card col-9" *ngIf="order$ | async as order">
+<div class="page-container">
+ 
+<div class="centerDiv">
+  <h3>Order details</h3>  
+  <div class="card" *ngIf="order$ | async as order">
+   
     <div class="card-body">
       <h4 class="card-title">Order summary</h4>
       <p class="card-text">Ordered by {{ order.shipping.name }} on {{ order.datePlaced }}</p>
-      <ul class="list-group list-group-flush" >
+
+      <ul class="list-group list-group-flush">
           <li *ngFor="let item of order.items" class="list-group-item">
                {{ item.quantity }} X {{ item.product.title }}
              <div class="float-right">
@@ -19,11 +23,21 @@
           </li>
           <li class="list-group-item font-weight-bold">
              Address:
-            <div class="float-right">
-             {{ order.shipping.addressLine1 }}, {{ order.shipping.addressLine2 }}, {{ order.shipping.city }}
-            </div>
-       
-      </li>
+              <div class="float-right">
+              {{ order.shipping.addressLine1 }}, {{ order.shipping.addressLine2 }}, {{ order.shipping.city }}
+              </div>
+           </li>     
       </ul>
+      <!-- <button class="btn btn-link" class="alink" (click)="back()" type="reset">Back to orders</button> -->
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item font-weight-bold">
+          <div class="float-right">
+            <a class="alink" (click)="back()">Back to orders</a>
+          </div>
+      </li>     
+    </ul>
     </div>
   </div>
+
+  </div>
+</div>

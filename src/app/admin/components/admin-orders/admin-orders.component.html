@@ -1,9 +1,10 @@
-
-<p>Order table</p>
+<div class="page-container">
+  
+<p>List of orders</p>
 <!--Search-->
 <mat-form-field>
     <mat-label><i class="material-icons">search</i></mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search ...">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search order...">
  </mat-form-field>
 
 <div class="example-container mat-elevation-z8">
@@ -35,8 +36,8 @@
          <!-- Edit Column -->
        <ng-container matColumnDef="key">
         <th mat-header-cell *matHeaderCellDef> View </th>
-        <td mat-cell *matCellDef="let element"> 
-        <a [routerLink]="['/admin/orders/', element.key]">View</a> </td>
+        <td mat-cell *matCellDef="let element" class="font-weight-bold"> 
+        <a [routerLink]="['/admin/orders/', element.key]" class="alink">View</a> </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -45,3 +46,5 @@
      <mat-paginator [length]="orders.length" [pageSize]="5" 
      [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
   </div>
+
+</div>

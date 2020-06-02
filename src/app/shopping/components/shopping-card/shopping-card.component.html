@@ -1,5 +1,4 @@
 <div class="page-container">
-
     <div class="row" *ngIf="card$ | async as card">
 
         <div class="col-3">
@@ -7,7 +6,7 @@
               <shopping-card-note [shopping-card]="card" ></shopping-card-note>
            </div>
         </div>
-      <div class="col-9">
+      <div class="col-9" *ngIf="card.totalItemsCount !== 0; else emptyCart">
         <table class="table">
             <thead>
                 <tr>
@@ -51,11 +50,15 @@
         <button 
         *ngIf="card.newCard.length"
         (click)="clearCard()" 
-        class="btn btn-light btn-sm">Clear Shopping Card</button>
-        
+        class="btn btn-light btn-sm">Clear Shopping Card</button> 
       </div>
 
-      
-    
+     <ng-template #emptyCart>
+        <div>
+            <h3 class="cartImage">Your shopping cart is empty</h3>
+            <img *ngIf="cartUrl" [src]="cartUrl" class="cartImage">
+        </div>
+     </ng-template>
+     
     </div>
 </div>

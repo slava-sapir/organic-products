@@ -5,8 +5,12 @@
   <div class="card-body">
     <h3 class="card-title">Your Shopping card</h3>
     <h6 class="card-subtitle mb-5 text-muted">Your products from today shopping</h6>
-    <p class="card-text">You have {{ card.totalItemsCount }} items in your shopping card</p>
-    <a routerLink="/" class="card-link">
+    <p *ngIf="card.totalItemsCount !==0; else next" class="card-text">
+      You have {{ card.totalItemsCount }} items in your shopping card</p>
+      <ng-template #next>
+        <p >Your shopping cart currently empty</p>
+      </ng-template>
+      <a routerLink="/" class="alink">
         Continue shopping
     </a>
   </div>

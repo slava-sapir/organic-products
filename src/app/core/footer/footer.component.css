@@ -1,5 +1,7 @@
 
-
+/* a {
+    color: #7d8f08;
+} */
 .footer {
     color: hsl(0, 6%, 85%);
     border-top: 1px solid #eeeeee;
@@ -13,7 +15,7 @@
 }
 
 .row-footer{
-    /* background-color: hsl(0, 6%, 85%); */
+    background-color: hsl(0, 6%, 85%);
     margin: 0px auto;
     padding: 20px 0px 20px 0px;   
 } 

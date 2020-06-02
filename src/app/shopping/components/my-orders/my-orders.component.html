@@ -1,43 +1,55 @@
-<div class='panel panel-primary'>  
-    <!-- <div class='panel-heading'>  
-        {{ title }}  
-    </div> -->
-    <p class="">{{ title }}</p>
- <div class='panel-body' class="text-align: center" >
- 
-  <div  class='table-responsive' class="display: inline-block" *ngIf="orders$ | async; let orders">
- 
-  <table class="table table-bordered table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th>Customer</th>
-          <th>Date</th>
-          <th>Total</th>
-          <th>Address</th>
-          <th>View details</th>
-        </tr>
-      </thead> 
-  
-      <tbody>
-        <tr *ngFor="let order as Order of orders">
-          <td>{{ order.shipping.name }}</td>
-          <td>{{ order.datePlaced }}</td>
-          <td>{{ order.total | currency:'USD':'symbol' }}</td>
-          <td>{{ order.shipping.addressLine1 }}, {{ order.shipping.addressLine2 }},
-              {{ order.shipping.city }}</td>
-          <td><button class="btn btn-link" (click)="view(order.key)">View</button></td>
-          
-        </tr>
-      </tbody> 
-  
-  </table>
-  
-   <!-- <div class="card col-9" >-->
-    <my-orders-note [action]="action" [card]="orders" [orderId]="key"></my-orders-note>
-   <!-- </div>-->
+<div class="page-container" *ngIf="orders$ | async; let orders">
+<div class="row">
 
-</div>
-</div>
-</div>
+<div class="col-md-9">
+ <div class='panel panel-primary'>  
+      <div class='panel-heading'>  
+         <h3> {{ title }} </h3>   
+      </div> 
+    
+  <div class='panel-body' class="text-align: center" class="display: inline-block" >
 
+      <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Address</th>
+                <th>View details</th>
+              </tr>
+            </thead> 
+        
+        <tbody>
+           <tr *ngFor="let order as Order of orders | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                <td>{{ order.shipping.name }}</td>
+                <td>{{ order.datePlaced }}</td>
+                <td>{{ order.total | currency:'USD':'symbol' }}</td>
+                <td>{{ order.shipping.addressLine1 }}, {{ order.shipping.addressLine2 }},
+                    {{ order.shipping.city }}</td>
+                <!-- <td><button class="btn btn-link" (click)="view(order.key)">View</button></td> -->
+                 <td align="center" class="font-weight-bold"><a class="alink" 
+                  (click)="view(order.key)">View</a></td>
+            </tr>
+        </tbody>  
+       </table>
+
+        <div>
+           <ngb-pagination [collectionSize]="orders.length" [(page)]="page" [pageSize]="pageSize"
+          [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="true" 
+          class="d-flex justify-content-end">
+          <ng-template ngbPaginationPrevious>Prev</ng-template>
+          <ng-template ngbPaginationNext>Next</ng-template>
+          </ngb-pagination>
+        </div>
+
+    </div>
+   </div>
+  </div>
+       
+      <div class="col-md-3">
+         <my-orders-note [action]="action" [card]="orders" [orderId]="key"></my-orders-note>
+      </div>  
+</div>
+</div>
 

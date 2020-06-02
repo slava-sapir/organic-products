@@ -11,3 +11,23 @@
 .text-center {
     padding-top: 10px;
 }
+
+.btn { margin: 4px 2px; display: inline-block;
+       background-color: #c1d62e;
+       border-color: #c1d62e;}
+
+.btn-primary {
+    background-color: #c1d62e;
+    border-color: #c1d62e;
+  }
+
+.btn-primary:hover {
+    background-color: #b1c522;
+    border-color: #b1c522;
+  }
+  
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: #c1d62e;
+    border-color:  #c1d62e;
+  }
+  

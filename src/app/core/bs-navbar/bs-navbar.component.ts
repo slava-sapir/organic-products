@@ -17,16 +17,17 @@ export class BsNavbarComponent implements OnInit {
 
   constructor(private auth: AuthService,
               private shoppingCardService: ShoppingCardService,
-              private router: Router) { }
+              private router: Router) {}
   appUser: AppUser;
   card$: Observable<ShoppingCard>;
   count: number;
 
-  async ngOnInit(){
+  ngOnInit() {
 
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+   
+    setTimeout( () => {this.card$ = this.shoppingCardService.getCardById(); }, 1000 );
 
-    this.card$ = await this.shoppingCardService.getCard();
   }
 
    logout() {
