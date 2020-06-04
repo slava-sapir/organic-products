@@ -1,10 +1,12 @@
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { ShoppingCardService } from '../../shared/services/shopping-card.service';
 import { AppUser } from '../../shared/models/app-user';
 import { AuthService } from '../../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCard } from '../../shared/models/shopping-card';
+
+
 
 
 
@@ -20,14 +22,12 @@ export class BsNavbarComponent implements OnInit {
               private router: Router) {}
   appUser: AppUser;
   card$: Observable<ShoppingCard>;
-  count: number;
+  count: any;
 
   ngOnInit() {
 
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-   
-    setTimeout( () => {this.card$ = this.shoppingCardService.getCardById(); }, 1000 );
-
+    setTimeout( () => { this.card$ = this.shoppingCardService.getCardById(); }, 1000 );
   }
 
    logout() {

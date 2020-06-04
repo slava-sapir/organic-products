@@ -1,3 +1,4 @@
+import { GoogleMapsModule } from '@angular/google-maps';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -22,6 +23,7 @@ import { ContactComponent } from './contact/contact.component';
   imports: [
     SharedModule,
     NgbModule,
+    GoogleMapsModule,
     RouterModule.forChild([
       { path: 'contact', component: ContactComponent },
     ])

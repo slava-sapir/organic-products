@@ -1,7 +1,7 @@
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
-import { take, map, retry } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { Item } from '../models/item';
 import { ShoppingCard } from '../models/shopping-card';
 import { Observable } from 'rxjs';
@@ -17,15 +17,14 @@ export class ShoppingCardService {
     const cartId = await this.getOrCreateCardId();
     return this.db.object('/shopping-cards/' + cartId).valueChanges()
     .pipe(map((cart: ShoppingCard) => new ShoppingCard(cart.items))
-     );
+    );
   }
 
     getCardById(): Observable<ShoppingCard> {
-    const cartId = localStorage.getItem('cartId');
-    // const cartId = await this.getOrCreateCardId();
-    return this.db.object('/shopping-cards/' + cartId).valueChanges()
-    .pipe(map((cart: ShoppingCard) => new ShoppingCard(cart.items))
-     );
+      const cartId = localStorage.getItem('cartId');
+      return this.db.object('/shopping-cards/' + cartId).valueChanges()
+      .pipe(map((cart: ShoppingCard) => new ShoppingCard(cart.items))
+      );
   }
 
   async clearCard() {
