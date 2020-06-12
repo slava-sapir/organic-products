@@ -1,12 +1,14 @@
-import { Shipping } from '../../../shared/models/shipping';
+import { Shipping } from './../../../shared/models/shipping';
+import {  FormBuilder, Validators } from '@angular/forms';
 import { ShoppingCard } from 'src/app/shared/models/shopping-card';
-import { Component,  ContentChild, ViewChild, OnInit, OnDestroy, Input } from '@angular/core';
-import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/services/auth.service';
 import { OrderService } from '../../../shared/services/order.service';
 import { Router } from '@angular/router';
 import { Order } from '../../../shared/models/order';
+
+
 
 @Component({
   selector: 'shipping-form',
@@ -15,45 +17,66 @@ import { Order } from '../../../shared/models/order';
 })
 
 export class ShippingFormComponent implements OnInit, OnDestroy {
-// tslint:disable-next-line: variable-name
-@ContentChild(MatFormFieldControl, {static: true} ) _control: MatFormFieldControl<any>;
-// tslint:disable-next-line: variable-name
-@ViewChild(MatFormField, { static: true}) _matFormField: MatFormField;
-// tslint:disable-next-line: no-input-rename
-@Input('card') card: ShoppingCard;
 
-shipping = {
-  name: '',
-  addressLine1: '',
-  addressLine2: '',
-  city: ''
-};
+  constructor(private fb: FormBuilder,
+              private orderService: OrderService,
+              private authService: AuthService,
+              private router: Router) {}
 
-// shipping: Shipping;
-userId: string;
-userSubscription: Subscription;
+    @Input('card') card: ShoppingCard;
 
-constructor(
-  private orderService: OrderService,
-  private authService: AuthService,
-  private router: Router) {}
-  
-  ngOnInit(): void {
-      // mat-fields-input control
-   this._matFormField._control = this._control;
+      userId: string;
+      userSubscription: Subscription;
+      shipping: Shipping;
+      // tslint:disable-next-line: member-ordering
+      addressForm = this.fb.group({
+      company: null,
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
+      addressLine1: [null, Validators.required],
+      addressLine2: null,
+      city: [null, Validators.required],
+      province: [null, Validators.required],
+      postalCode: [null, Validators.compose([
+        Validators.required, Validators.pattern('^[a-zA-Z0-9]*$'), 
+        Validators.minLength(6), Validators.maxLength(6)])
+      ],
+      shippingType: ['free', Validators.required]
+      });
 
-   const user$ = this.authService.userData$;
-   this.userSubscription = user$.subscribe(user => this.userId = user.uid);
-  }
+      hasUnitNumber = false;
 
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-  }
+      provinces = [
+      {name: 'Ontario', abbreviation: 'ON'},
+      {name: 'Monitoba', abbreviation: 'MB'},
+      {name: 'Alberta', abbreviation: 'AL'},
+      {name: 'British Colambia', abbreviation: 'BC'},
+      {name: 'Saskatchewan', abbreviation: 'SK'},
+      {name: 'Quebec', abbreviation: 'QC'},
+      {name: 'Nova Scotia', abbreviation: 'NS'},
+      {name: 'Newfoundland and Labrador', abbreviation: 'N.L./T.-N.-L.'},
+      {name: 'Prince Edward Island', abbreviation: 'PE'},
+      {name: 'New Brunswick', abbreviation: 'NB'},
+      {name: 'Northwest Territories', abbreviation: 'NT'},
+      {name: 'Nunavut', abbreviation: 'NU'}
+  ];
+    
+    ngOnInit(): void {
+        // mat-fields-input control
+        //  this._matFormField._control = this._control;
+     const user$ = this.authService.userData$;
+     this.userSubscription = user$.subscribe(user => this.userId = user.uid);
+    }
+    
+    ngOnDestroy(): void {
+      this.userSubscription.unsubscribe();
+    }
 
-  async placeOrder() {
-    const order = new Order(this.userId, this.shipping, this.card);
-    const result = await this.orderService.placeOrder(order);
-    this.router.navigate(['/order-success', result.key]);
-  }
+    async placeOrder() {
+        this.shipping = Object.assign({}, this.addressForm.value);
+        const order = new Order(this.userId, this.shipping, this.card);
+        const result = await this.orderService.placeOrder(order);
+        this.router.navigate(['/order-success', result.key]);
+    }
 
 }

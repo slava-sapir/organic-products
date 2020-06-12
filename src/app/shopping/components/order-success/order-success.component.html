@@ -1,12 +1,13 @@
 <div class="page-container">
   <div class="centerDiv">
 
-<p>Thank you for doing business with us</p>
+<h3>Thank you for doing business with us</h3>
 <p>Please see your order details</p>     
    <div class="card" *ngIf="order$ | async as order">
        <div class="card-body">
           <h4 class="card-title">Order summary</h4>
-          <p class="card-text">Ordered by {{ order.shipping.name }} on {{ order.datePlaced }}</p>
+          <p class="card-text">Ordered by {{ order.shipping.firstName }} 
+            {{ order.shipping.lastName }} on {{ order.datePlaced }}</p>
           <ul class="list-group list-group-flush" >
               <li *ngFor="let item of order.items" class="list-group-item">
                   {{ item.quantity }} X {{ item.product.title }}
@@ -23,13 +24,16 @@
               <li class="list-group-item font-weight-bold">
                 Address:
                 <div class="float-right">
-                {{ order.shipping.addressLine1 }}, {{ order.shipping.addressLine2 }}, {{ order.shipping.city }}
+                {{ order.shipping.addressLine1 }}, {{ order.shipping.addressLine2 }}, {{ order.shipping.city }},
+                {{ order.shipping.province}}, {{ order.shipping.postalCode}} 
                 </div>
               </li>
               <li class="list-group-item ">
                 <div class="float-left">
-                  Your order will be shipped in 3 days
-                  <button class="btn btn-link" (click)="continueShopping()">Continue shopping</button>
+                  Your order will be shipped as a {{order.shipping.shippingType | uppercase}} shipping
+                </div>
+                  <div class="float-right">
+                  <a class="alink" (click)="continueShopping()">Continue shopping</a>
                 </div>
               </li>
           </ul>

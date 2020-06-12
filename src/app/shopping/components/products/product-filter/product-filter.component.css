@@ -1,7 +1,8 @@
-.sticky-top {
+ .sticky-top {
     top: 80px;
 }
-/* 
+ 
+/*
 .list-group-item.active {
     z-index: 2;
     color: #fff;

@@ -27,9 +27,7 @@ export class OrderSuccessComponent implements OnInit {
 }
 
 continueShopping() {
-  if(confirm('Are you sure you want to leave this page?')) {
-    this.router.navigate(['/']);
-  }
+  this.router.navigate(['/']);
 }
 
 }

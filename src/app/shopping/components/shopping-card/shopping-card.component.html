@@ -1,13 +1,31 @@
-<div class="page-container">
-    <div class="row" *ngIf="card$ | async as card">
 
-        <div class="col-3">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head 
+         content must come *after* these tags -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<div class="container">
+  <div class="row" *ngIf="card$ | async as card">
+
+        <!-- <div class="col-3"> Line below is for responsive style-->
+        <div class="col-xs-12 col-sm-3">
             <div class="sticky-top">
               <shopping-card-note [shopping-card]="card" ></shopping-card-note>
            </div>
         </div>
-      <div class="col-9" *ngIf="card.totalItemsCount !== 0; else emptyCart">
-        <table class="table">
+
+        <!-- <div class="col-9" *ngIf="card.totalItemsCount !== 0; else emptyCart"> -->
+    <div class="col-xs-12 col-sm-8" *ngIf="card.totalItemsCount !== 0; else emptyCart">
+       <div class="table-responsive">
+         <table class="table">
             <thead>
                 <tr>
                     <th></th>
@@ -37,28 +55,43 @@
             <tfoot>
                 <tr>
                     <th></th>
-                    <th></th>
                     <th>Total</th>
+                    <th></th>
                     <th class="text-right">{{ card.totalPrice | currency: 'USD': 'symbol' }}</th>
                 </tr>
             </tfoot>
-         </table>
-        <a
-        *ngIf="card.newCard.length"
-        routerLink="/check-out"
-        class="btn btn-primary btn-sm">Check out</a>
-        <button 
-        *ngIf="card.newCard.length"
-        (click)="clearCard()" 
-        class="btn btn-light btn-sm">Clear Shopping Card</button> 
+          </table>
+        
+          <a
+            *ngIf="card.newCard.length"
+            routerLink="/check-out"
+            class="btn btn-primary btn-sm">Check out
+          </a>
+          <button 
+            *ngIf="card.newCard.length"
+            (click)="clearCard()" 
+            class="btn btn-light btn-sm">
+            Clear Shopping Card
+          </button> 
+          
       </div>
+    </div>
 
      <ng-template #emptyCart>
-        <div>
-            <h3 class="cartImage">Your shopping cart is empty</h3>
-            <img *ngIf="cartUrl" [src]="cartUrl" class="cartImage">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <h1 class="alink cartImage">Your cart is empty</h1>
+                <p style="padding:10px;"></p>
+                <p class="cartImage" >We take inspiration from the World's best products. 
+                    Continue shopping with us!</p>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <p style="padding:20px;"></p>
+                <img *ngIf="cartUrl" [src]="cartUrl" class="img-responsive">
+            </div>
         </div>
      </ng-template>
      
     </div>
+    <p style="padding:70px;"></p>
 </div>

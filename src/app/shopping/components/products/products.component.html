@@ -1,11 +1,13 @@
+<div class="container">
+  <div class="row">
 
-<div class="row" id="home">
+      <!-- <div class="col-3"> Line below was added for responsive style-->
+      <div class="col-xs-12 col-sm-4 col-lg-3">  
+        <product-filter [category]="category"></product-filter>
+      </div>
 
-     <div class="col-3">
-       <product-filter [category]="category"></product-filter>
-     </div>
-
-        <div class="col-9">
+        <!-- <div class="col-9"> Line below was added for responsive style-->
+          <div class="col-xs-12 col-sm-8 col-lg-9">
             <div class="row" *ngIf="card$ | async as card">
              <!-- <ng-container *ngFor="let p of products | filter : category; let i = index"> -->
               <ng-container *ngFor="let p of filteredProducts; let i = index">
@@ -17,6 +19,6 @@
             </div>
         </div>
     
+  </div>
 </div>
-
         

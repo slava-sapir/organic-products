@@ -1,57 +1,125 @@
-<form #f="ngForm" (ngSubmit)="placeOrder()" novalidate>
-    
-        <div class="form-group"> 
-           <mat-form-field appearance="fill">
-             <mat-label for="name">Name</mat-label>
-              <input matInput #name="ngModel" [(ngModel)]="shipping.name" name="name" 
-               id="name" type="text" required>
-              <mat-hint>Errors appear instantly!</mat-hint>
-              <mat-error *ngIf="name.touched">Name is needed</mat-error>
-           </mat-form-field>
-        </div>
+<form [formGroup]="addressForm" novalidate (ngSubmit)="placeOrder()">
 
-        <div class="form-group">
-          <span>Address</span>
-          <mat-form-field appearance="fill">
-            <mat-label for="addressLine1">Line 1</mat-label>
-            <input matInput  #addressLine1="ngModel" [(ngModel)]="shipping.addressLine1" 
-             name="addressLine1" id="addressLine1" type="text" required>
-            <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error *ngIf="addressLine1.touched || addressLine1.invalid">
-                Address is needed
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Shipping Information</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Company" formControlName="company">
+          </mat-form-field>
+        </div>
+      </div>
+     <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="First name" formControlName="firstName" 
+            name="firstName" id="firstName">
+            <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
+              First name is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
-
-        <div class="form-group">
-          <div class="input-group-append">
-          <mat-form-field appearance="fill">
-            <mat-label for="addressLine2">Line 2</mat-label>
-              <input matInput  #addressLine2="ngModel" [(ngModel)]="shipping.addressLine2" 
-              name="addressLine2" id="addressLine2" type="text" required>
-              <mat-hint>Errors appear instantly!</mat-hint>
-              <mat-error *ngIf="addressLine2.touched || addressLine2.invalid">
-                Address is needed
-              </mat-error>
-           </mat-form-field>
-           </div> 
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last name" formControlName="lastName" 
+            name="lastName" id="lastName">
+            <mat-error *ngIf="addressForm.controls['lastName'].hasError('required')">
+              Last name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-
-        <div class="form-group">
-          <mat-form-field appearance="fill">
-            <mat-label for="city">City</mat-label>
-                <input matInput  #city="ngModel" name="city" [(ngModel)]="shipping.city" 
-                id="city" type="text" required>
-                <mat-hint>Errors appear instantly!</mat-hint>
-                <mat-error  *ngIf="city.touched">
-                City needed
-                </mat-error>
-         </mat-form-field>	
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Address" formControlName="addressLine1" 
+		         name="addressLine1" id="addressLine1"></textarea>
+            <mat-error *ngIf="addressForm.controls['addressLine1'].hasError('required')">
+              Address is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-
-        <button class="btn btn-primary" [disabled]="f.form.invalid" type="submit">Place order</button>
-        <button class="btn btn-secondary" type="reset">Reset</button>
-        <a routerLink="/" class="card-link">
-            <button class="btn btn-link" type="reset">Cancel</button>
+      </div>
+      <div class="row" *ngIf="!hasUnitNumber">
+        <div class="col">
+          <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
+            + Add C/O, Apt, Suite, Unit
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="hasUnitNumber">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Address 2" formControlName="addressLine2" 
+	           name="addressLine2" id="addressLine2"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="City" formControlName="city"
+             name="city" id="city">
+            <mat-error *ngIf="addressForm.controls['city'].hasError('required')">
+              City is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Province" formControlName="province" 
+			       name="province" id="province">
+              <mat-option *ngFor="let province of provinces" [value]="province.abbreviation">
+                {{ province.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addressForm.controls['province'].hasError('required')">
+              Province is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput #postalCode maxlength="6" placeholder="Postal Code"
+             ng-pattern="^[a-zA-Z0-9]*$" formControlName="postalCode" 
+			       name="postalCode" id="postalCode">
+             <mat-error *ngIf="addressForm.controls['postalCode'].hasError('required')">
+              You need provide <strong>postal code</strong>
+            </mat-error>
+            <mat-error *ngIf="addressForm.controls['postalCode'].hasError('pattern')">
+             Postal code is <strong>wrong</strong>
+            </mat-error>
+            <mat-hint align="end">{{postalCode.value.length}} / 6</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-radio-group formControlName="shippingType">
+            <mat-radio-button value="free">Free Shipping</mat-radio-button>
+            <mat-radio-button value="priority">Priority Shipping</mat-radio-button>
+            <mat-radio-button value="nextday">Next Day Shipping</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- <button mat-raised-button color="primary" [disabled]="addressForm.invalid" 
+      type="submit">Submit</button> -->
+      <button class="btn btn-primary" [disabled]="addressForm.invalid" type="submit">Place order</button>
+      <button class="btn btn-secondary" type="reset">Reset</button>
+         <a routerLink="/" class="card-link">
+          <button class="btn btn-link" type="reset">Cancel</button>
         </a>
-  </form>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+  
+
