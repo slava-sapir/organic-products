@@ -1,6 +1,10 @@
 export interface Shipping {
-    name: string;
-    addressLine1: string;
-    addressLine2: string;
-    city: string;
+    firstName: '';
+	lastName: '';
+    addressLine1: '';
+    addressLine2: '';
+    city: '';
+    province: '';
+	postalCode: '';
+    shippingType: '';
 }

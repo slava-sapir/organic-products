@@ -4,6 +4,8 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
 import { Product } from 'src/app/shared/models/product';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // import {VERSION} from '@angular/material';
 
 
@@ -23,6 +25,7 @@ export class ProductFormComponent implements OnInit {
  @ContentChild(MatFormFieldControl, {static: true} ) _control: MatFormFieldControl<any>;
  // tslint:disable-next-line: variable-name
  @ViewChild(MatFormField, { static: true}) _matFormField: MatFormField;
+  segment: string;
 
 
   constructor(private router: Router,
@@ -31,6 +34,8 @@ export class ProductFormComponent implements OnInit {
               private productService: ProductService,
               ) {
                 this.categories$ = this.categoryService.getAll();
+                const url: Observable<string> = route.url.pipe(map(segments => segments.join('')));
+                url.subscribe(segments => this.segment = segments);
               }
 
   save(product) {

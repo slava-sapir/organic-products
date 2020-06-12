@@ -2,7 +2,7 @@
   <div class="centerDiv">
 
     <div *ngIf="product.title && !closeAlert; else next" class="alert alert-light alert-dismissible fade show" role="alert">
-      <strong>Hello!</strong> 
+      <strong>Hello !</strong> 
       Here you can manage your products - save, update or delete them.
       You can also hit cancel to go back to the list of products.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()">
@@ -11,9 +11,10 @@
     </div>
 
     <ng-template #next>
-      <div *ngIf="!closeAlert" class="col-md-3" class="alert alert-light alert-dismissible fade show" 
+      <div *ngIf="!closeAlert" class="col-md-3" 
+          class="alert alert-light alert-dismissible fade show" 
         role="alert">
-        <strong>Hello!</strong> 
+        <strong>Hello !</strong> 
         Using this form you can add new product to the product list.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close()">
         <span aria-hidden="true">&times;</span>
@@ -80,7 +81,8 @@
          </div>
 
             <button class="btn btn-primary" [disabled]="f.form.invalid" type="submit">Save</button>
-            <button class="btn btn-danger" (click)="delete()" type="button">Delete</button>
+            <button *ngIf="segment != 'adminproductsnew'" class="btn btn-danger" (click)="delete()" 
+             type="button">Delete</button>
             <button class="btn btn-secondary" type="reset">Reset</button>
             <button class="btn btn-link" (click)="cancel()" type="reset">Cancel</button>
         

@@ -17,6 +17,12 @@ import {
 } from 'src/app/shopping/components/shopping-card/shopping-card-note/shopping-card-note.component';
 import { ShoppingCardComponent } from 'src/app/shopping/components/shopping-card/shopping-card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -42,7 +48,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
       { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard] },
       { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard] }
-    ])
+    ]),
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    ReactiveFormsModule
   ]
 })
 export class ShoppingModule { }

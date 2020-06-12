@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
+  count;
   constructor(private userService: UserService, private auth: AuthService, router: Router) {
     auth.userData$.subscribe(user => {
       if(!user) { return; }

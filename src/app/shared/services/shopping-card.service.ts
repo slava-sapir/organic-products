@@ -1,10 +1,10 @@
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
-import { take, map } from 'rxjs/operators';
+import { take, map, tap } from 'rxjs/operators';
 import { Item } from '../models/item';
 import { ShoppingCard } from '../models/shopping-card';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,23 +13,34 @@ export class ShoppingCardService {
 
   constructor(private db: AngularFireDatabase) { }
 
+  private _refreshPage$ = new Subject<void>();
+
+  get refreshPage() {
+    return this._refreshPage$;
+  }
+
   async getCard(): Promise<Observable<ShoppingCard>> {
     const cartId = await this.getOrCreateCardId();
     return this.db.object('/shopping-cards/' + cartId).valueChanges()
-    .pipe(map((cart: ShoppingCard) => new ShoppingCard(cart.items))
+    .pipe(tap(() => this._refreshPage$.next()), map((cart: ShoppingCard) => new ShoppingCard(cart.items))
     );
   }
 
-    getCardById(): Observable<ShoppingCard> {
+   getCardById(): Observable<ShoppingCard> {
       const cartId = localStorage.getItem('cartId');
+      if(cartId) {
       return this.db.object('/shopping-cards/' + cartId).valueChanges()
       .pipe(map((cart: ShoppingCard) => new ShoppingCard(cart.items))
       );
+      }
+      return;
   }
 
   async clearCard() {
     const cartId = await this.getOrCreateCardId();
     const promise = this.db.object('/shopping-cards/' + cartId + '/items').remove();
+   // this.db.list('/shopping-cards/' + cartId).remove(); //new line
+  //  localStorage.removeItem('cartId'); // new line
     promise.then(_ => console.log('success'))
     .catch(err => console.log(err, 'You do not have access!'));
   }
