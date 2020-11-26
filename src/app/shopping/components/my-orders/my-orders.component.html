@@ -1,7 +1,6 @@
 <div class="page-container" *ngIf="orders$ | async; let orders">
 <div class="row">
 
-<!-- <div class="col-md-9"> -->
   <div class="col-xs-12 col-sm-8">
    <div class='panel panel-primary'>  
       <div class='panel-heading'>  
@@ -22,24 +21,29 @@
             </thead> 
         
         <tbody>
-           <tr *ngFor="let order as Order of orders | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+           <tr *ngFor="let order of orders | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                 <td>{{ order.shipping.firstName }} {{ order.shipping.lastName }}</td>
                 <td>{{ order.datePlaced }}</td>
                 <td>{{ order.total | currency:'USD':'symbol' }}</td>
                 <td>{{ order.shipping.addressLine1 }}, {{ order.shipping.addressLine2 }},
                     {{ order.shipping.city }}, {{ order.shipping.postalCode }}, 
                     {{ order.shipping.province }}</td>
-                <!-- <td><button class="btn btn-link" (click)="view(order.key)">View</button></td> -->
-                 <td align="center" class="font-weight-bold"><a class="alink" 
-                  (click)="view(order.key)">View</a></td>
+                <td align="center" class="font-weight-bold">
+                   <a class="alink"  (click)="view(order.key)">View</a>
+                </td>
             </tr>
         </tbody>  
        </table>
     </div>
         <div>
-           <ngb-pagination [collectionSize]="orders.length" [(page)]="page" [pageSize]="pageSize"
-          [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="true" 
-          class="d-flex justify-content-end">
+           <ngb-pagination 
+           [collectionSize]="orders.length" 
+           [(page)]="page" 
+           [pageSize]="pageSize"
+           [maxSize]="5" [rotate]="true" 
+           [ellipses]="true" 
+           [boundaryLinks]="true" 
+           class="d-flex justify-content-end">
           <ng-template ngbPaginationPrevious>Prev</ng-template>
           <ng-template ngbPaginationNext>Next</ng-template>
           </ngb-pagination>

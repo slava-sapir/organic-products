@@ -1,0 +1,27 @@
+Organic shoop project is deployed to firebase with the link:
+
+151.101.1.195  organicproductswebsite.com
+
+Hosting URL: https://organic-shop-eeee6.web.app
+
+https://organic-shop-eeee6.firebaseapp.com/
+
+Google Map API key:
+AIzaSyCdM8k68a3j8Vy7-URgexkRbHZZ--FQKlg
+
+{
+  "hosting": {
+    "public": "dist/oshop",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

@@ -9,12 +9,12 @@ import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
 })
 export class ContactComponent implements OnInit {
 
-  imageUrl ='https://cdn.pixabay.com/photo/2020/04/14/18/53/market-5043870_960_720.png';
+  imageUrl ='https://cdn.pixabay.com/photo/2014/08/21/00/19/green-422995_1280.jpg';
   
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
 
-  zoom = 12
+  zoom = 12;
   center: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
     zoomControl: false,
@@ -23,17 +23,19 @@ export class ContactComponent implements OnInit {
     mapTypeId: 'hybrid',
     maxZoom: 15,
     minZoom: 8,
-  }
-  markers = []
-  infoContent = ''
+  };
+  markers = [];
+  infoContent = '';
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition(position => {
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
       this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      }
-    })
+        lat: 42.987798399999996,
+        lng: -81.2849062,
+      };
+    });
   }
 
   zoomIn() {
@@ -49,28 +51,10 @@ export class ContactComponent implements OnInit {
   }
 
   logCenter() {
-    console.log(JSON.stringify(this.map.getCenter()))
+    console.log(JSON.stringify(this.map.getCenter()));
   }
 
-  addMarker() {
-    this.markers.push({
-      position: {
-        lat: this.center.lat + ((Math.random() - 0.5) * 2) / 10,
-        lng: this.center.lng + ((Math.random() - 0.5) * 2) / 10,
-      },
-      label: {
-        color: 'red',
-        text: 'Marker label ' + (this.markers.length + 1),
-      },
-      title: 'Marker title ' + (this.markers.length + 1),
-      info: 'Marker info ' + (this.markers.length + 1),
-      options: {
-        animation: google.maps.Animation.BOUNCE,
-      },
-    })
-  }
-
-  openInfo(marker: MapMarker, content) {
+  openInfo(marker: MapMarker, content: string) {
     this.infoContent = content;
     this.info.open(marker);
   }

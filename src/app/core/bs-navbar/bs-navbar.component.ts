@@ -23,7 +23,7 @@ export class BsNavbarComponent implements OnInit {
               private shoppingCardService: ShoppingCardService,
               private router: Router) {}
   appUser: AppUser;
-  card; // Observable<ShoppingCard>;
+  card$: Observable<ShoppingCard>;
   count: any;
   public isMenuCollapsed = true;
 
@@ -31,14 +31,15 @@ export class BsNavbarComponent implements OnInit {
 
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
     this.shoppingCardService.refreshPage.subscribe(() => this.getCartById());
-    this.getCartById();
-   // setTimeout( () => { this.card$ = this.shoppingCardService.getCardById(); }, 1000 );
+   // this.getCartById();
+  //  setTimeout( () => { this.card$ = this.shoppingCardService.getCardById(); }, 1000 );
    // this.card$ = this.shoppingCardService.getCardById();
   }
 
-  private getCartById() {
-  setTimeout( () => { this.shoppingCardService.getCardById()
-  .subscribe( cart => this.card = cart); }, 2000 );
+   private getCartById() {
+    this.card$ = this.shoppingCardService.getCardById();
+  // setTimeout( () => { this.shoppingCardService.getCardById()
+ // .subscribe( cart => this.card = cart); }, 1000 );
   }
 
    logout() {

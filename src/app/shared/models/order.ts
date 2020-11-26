@@ -5,6 +5,7 @@ export class Order {
     datePlaced: string;
     items: any[] = [];
     total: number;
+    key: string;
 
     constructor(public userId: string,  public shipping: any, shoppingCard: ShoppingCard) {
 

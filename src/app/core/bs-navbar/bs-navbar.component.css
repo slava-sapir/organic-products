@@ -13,3 +13,17 @@
   .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
     color: #b1c522;
   }
+
+
+  .cart-no {
+    position: absolute;
+    min-height: 5px;
+    min-width: 20px;
+    border-radius: 50%;
+    font-size: 1em;
+    background: rgb(241, 180, 9);
+    color: white;
+    text-align: center;
+    top: 6px;
+    left: 495px;
+}

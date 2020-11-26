@@ -4,7 +4,7 @@ import { Product } from '../models/product';
 import { take, map, tap } from 'rxjs/operators';
 import { Item } from '../models/item';
 import { ShoppingCard } from '../models/shopping-card';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, AsyncSubject, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,9 @@ export class ShoppingCardService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  private _refreshPage$ = new Subject<void>();
-
+  // tslint:disable-next-line: variable-name
+ private _refreshPage$ = new Subject<void>();
+ 
   get refreshPage() {
     return this._refreshPage$;
   }
@@ -22,8 +23,9 @@ export class ShoppingCardService {
   async getCard(): Promise<Observable<ShoppingCard>> {
     const cartId = await this.getOrCreateCardId();
     return this.db.object('/shopping-cards/' + cartId).valueChanges()
-    .pipe(tap(() => this._refreshPage$.next()), map((cart: ShoppingCard) => new ShoppingCard(cart.items))
-    );
+    .pipe( map((cart: ShoppingCard) => new ShoppingCard(cart.items)),
+          tap(() => this._refreshPage$.next())
+        );
   }
 
    getCardById(): Observable<ShoppingCard> {

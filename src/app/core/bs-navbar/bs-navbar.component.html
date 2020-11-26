@@ -19,6 +19,7 @@
     </div>
       
     <div [ngbCollapse]="isMenuCollapsed" class="navbar-collapse collapse" id="navbars">
+
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="navbar-brand" routerLink="/">
@@ -29,13 +30,15 @@
           <a class="navbar-brand" routerLink="/contact" aria-hidden="true">
             <i class="fa fa-envelope-o" aria-hidden="true">Contact</i>
           </a>
-      </li>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/shopping-card">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            <span class="badge badge-warning badge-pill" *ngIf="card">
-              {{ card.totalItemsCount }}
-            </span>
+            <!-- <i class="fa fa-shopping-cart fa-1x mr-5"></i> -->
+            <div *ngIf="card$ | async as card" class="cart-no">  {{ card.totalItemsCount }}</div>
+              <!-- <span class="cart-no" *ngIf="card$ | async as card">
+                {{ card.totalItemsCount }}
+              </span> -->
           </a>
         </li>
       </ul>

@@ -13,15 +13,21 @@ export class AppComponent {
   count;
   constructor(private userService: UserService, private auth: AuthService, router: Router) {
     auth.userData$.subscribe(user => {
-      if(!user) { return; }
+      if (!user) { return; }
       userService.save(user);
 
       const returnUrl = localStorage.getItem('returnUrl');
-      if(!returnUrl) { return; }
+      if (!returnUrl) { return; }
       localStorage.removeItem('returnUrl');
-      router.navigateByUrl(returnUrl)
-    });
+      const promise = router.navigateByUrl(returnUrl);
+      promise.then(_ => console.log('success'))
+      .catch(err => console.log(err, 'You do not have access!'));
+
+      });
   }
 
 }
+
+
+
 

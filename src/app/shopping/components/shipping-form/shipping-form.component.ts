@@ -1,5 +1,6 @@
-import { Shipping } from './../../../shared/models/shipping';
-import {  FormBuilder, Validators } from '@angular/forms';
+// import { Shipping } from './../../../shared/models/shipping';
+import { Shipping } from '../../../shared/models/shipping'; // shipping-form original
+import { FormBuilder, Validators } from '@angular/forms';
 import { ShoppingCard } from 'src/app/shared/models/shopping-card';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -23,11 +24,12 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
               private authService: AuthService,
               private router: Router) {}
 
-    @Input('card') card: ShoppingCard;
+     @Input('card') card: ShoppingCard;
 
       userId: string;
       userSubscription: Subscription;
       shipping: Shipping;
+
       // tslint:disable-next-line: member-ordering
       addressForm = this.fb.group({
       company: null,
